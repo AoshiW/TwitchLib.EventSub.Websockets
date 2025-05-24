@@ -2,7 +2,7 @@
 
 namespace TwitchLib.EventSub.Websockets.Core.Models;
 
-public class EventSubMetadata
+public class WebsocketsEventSubMetadata : EventSubMetadata
 {
     /// <summary>
     /// An ID that uniquely identifies message. 
@@ -29,3 +29,7 @@ public class EventSubMetadata
     /// </summary>
     public string? SubscriptionVersion { get; set; }
 }
+
+// in .Core
+public class EventSubMetadata
+{ }

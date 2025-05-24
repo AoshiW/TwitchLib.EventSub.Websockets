@@ -33,13 +33,13 @@ namespace TwitchLib.EventSub.Websockets.Example
 
         private async Task OnChannelFollow(object sender, ChannelFollowArgs e)
         {
-            var eventData = e.Notification.Payload.Event;
+            var eventData = e.Payload.Event;
             _logger.LogInformation($"{eventData.UserName} followed {eventData.BroadcasterUserName} at {eventData.FollowedAt}");
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            await _eventSubWebsocketClient.ConnectAsync();
+            await _eventSubWebsocketClient.ConnectAsync(new("ws://127.0.0.1:8080/ws"));
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

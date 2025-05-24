@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.Follows
         public string SubscriptionType => "channel.follow";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelFollow>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelFollow>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelFollow", new ChannelFollowArgs { Notification = data });
+                client.RaiseEvent("ChannelFollow", new ChannelFollowArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

@@ -15,14 +15,14 @@ namespace TwitchLib.EventSub.Websockets.Handler
         public string SubscriptionType => "revocation";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
-            var data = JsonSerializer.Deserialize<EventSubNotification<object>>(jsonString.AsSpan(), serializerOptions);
+            var data = JsonSerializer.Deserialize<EventSubNotificationPayload<object>>(jsonString.AsSpan(), serializerOptions);
 
             if (data is null)
                 throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-            client.RaiseEvent("Revocation", new RevocationArgs { Notification = data });
+            client.RaiseEvent("Revocation", new RevocationArgs { Payload = data, Metadata = metadata });
         }
     }
 }

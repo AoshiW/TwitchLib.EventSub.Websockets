@@ -1,7 +1,12 @@
-﻿namespace TwitchLib.EventSub.Websockets.Core.EventArgs
+﻿using TwitchLib.EventSub.Websockets.Core.Models;
+
+namespace TwitchLib.EventSub.Websockets.Core.EventArgs
 {
-    public abstract class TwitchLibEventSubEventArgs<T> : System.EventArgs where T: new()
+    // move to .Core
+
+    public abstract class TwitchLibEventSubEventArgs<T> : System.EventArgs 
     {
-        public T Notification { get; set; } = new T();
+        public EventSubMetadata Metadata { get; set; } = new();
+        public EventSubNotificationPayload<T> Payload { get; set; } = new();
     }
 }

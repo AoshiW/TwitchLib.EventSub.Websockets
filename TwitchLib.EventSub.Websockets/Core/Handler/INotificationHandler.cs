@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.Handler
 {
@@ -17,7 +18,8 @@ namespace TwitchLib.EventSub.Websockets.Core.Handler
         /// </summary>
         /// <param name="client">EventSubWebsocketClient that received the notification</param>
         /// <param name="jsonString">Message as json string received by the EventSubWebsocketClient</param>
+        /// <param name="metadata"></param>
         /// <param name="serializerOptions">Options to configure the JsonSerializer</param>
-        void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions);
+        void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions);
     }
 }

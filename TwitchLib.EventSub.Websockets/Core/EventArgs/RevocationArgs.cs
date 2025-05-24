@@ -2,6 +2,6 @@
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs
 {
-    public class RevocationArgs : TwitchLibEventSubEventArgs<EventSubNotification<object>>
+    public class RevocationArgs : TwitchLibEventSubEventArgs<object>
     { }
 }

@@ -43,7 +43,7 @@ namespace TwitchLib.EventSub.Websockets.Example.NetStandard
 
         private async Task OnChannelFollow(object sender, ChannelFollowArgs e)
         {
-            var eventData = e.Notification.Payload.Event;
+            var eventData = e.Payload.Event;
             _logger.LogInformation($"{eventData.UserName} followed {eventData.BroadcasterUserName} at {eventData.FollowedAt}");
         }
         
