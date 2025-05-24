@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.Charity
         public string SubscriptionType => "channel.charity_campaign.donate";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelCharityCampaignDonate>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelCharityCampaignDonate>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelCharityCampaignDonate", new ChannelCharityCampaignDonateArgs { Notification = data });
+                client.RaiseEvent("ChannelCharityCampaignDonate", new ChannelCharityCampaignDonateArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.Predictions
         public string SubscriptionType => "channel.prediction.begin";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelPredictionBegin>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelPredictionBegin>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelPredictionBegin", new ChannelPredictionBeginArgs { Notification = data });
+                client.RaiseEvent("ChannelPredictionBegin", new ChannelPredictionBeginArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

@@ -3,6 +3,6 @@ using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelGuestStarSessionEndArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelGuestStarSessionEnd>>
+    public class ChannelGuestStarSessionEndArgs : TwitchLibEventSubEventArgs<ChannelGuestStarSessionEnd>
     { }
 }

@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.ChannelPoints.Redemption
         public string SubscriptionType => "channel.channel_points_custom_reward_redemption.update";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelPointsCustomRewardRedemption>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelPointsCustomRewardRedemption>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelPointsCustomRewardRedemptionUpdate", new ChannelPointsCustomRewardRedemptionArgs { Notification = data });
+                client.RaiseEvent("ChannelPointsCustomRewardRedemptionUpdate", new ChannelPointsCustomRewardRedemptionArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

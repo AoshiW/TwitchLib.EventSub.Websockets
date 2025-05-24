@@ -16,16 +16,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.Shoutouts
         /// <inheritdoc />
         public string SubscriptionType => "channel.shoutout.receive";
         
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelShoutoutReceive>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelShoutoutReceive>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelShoutoutReceive", new ChannelShoutoutReceiveArgs { Notification = data });
+                client.RaiseEvent("ChannelShoutoutReceive", new ChannelShoutoutReceiveArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

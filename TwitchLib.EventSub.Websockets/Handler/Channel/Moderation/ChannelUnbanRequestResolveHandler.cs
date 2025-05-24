@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.Moderation
         public string SubscriptionType => "channel.unban_request.resolve";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelUnbanRequestResolve>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelUnbanRequestResolve>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelUnbanRequestResolve", new ChannelUnbanRequestResolveArgs { Notification = data });
+                client.RaiseEvent("ChannelUnbanRequestResolve", new ChannelUnbanRequestResolveArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

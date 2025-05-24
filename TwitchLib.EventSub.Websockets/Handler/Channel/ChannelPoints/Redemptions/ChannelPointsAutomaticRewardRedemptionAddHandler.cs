@@ -16,16 +16,16 @@ public class ChannelPointsAutomaticRewardRedemptionAddHandler : INotificationHan
     public string SubscriptionType => "channel.channel_points_automatic_reward_redemption.add";
 
     /// <inheritdoc />
-    public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+    public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
     {
         try
         {
-            var data = JsonSerializer.Deserialize<EventSubNotification<ChannelPointsAutomaticRewardRedemption>>(jsonString.AsSpan(), serializerOptions);
+            var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelPointsAutomaticRewardRedemption>>(jsonString.AsSpan(), serializerOptions);
 
             if (data is null)
                 throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-            client.RaiseEvent("ChannelPointsAutomaticRewardRedemptionAdd", new ChannelPointsAutomaticRewardRedemptionArgs { Notification = data });
+            client.RaiseEvent("ChannelPointsAutomaticRewardRedemptionAdd", new ChannelPointsAutomaticRewardRedemptionArgs { Payload = data, Metadata = metadata });
         }
         catch (Exception ex)
         {

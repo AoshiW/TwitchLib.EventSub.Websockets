@@ -2,7 +2,7 @@
 using TwitchLib.EventSub.Websockets.Core.Models;
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelChatNotificationArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelChatNotification>>
+    public class ChannelChatNotificationArgs : TwitchLibEventSubEventArgs<ChannelChatNotification>
     {
     }
 }

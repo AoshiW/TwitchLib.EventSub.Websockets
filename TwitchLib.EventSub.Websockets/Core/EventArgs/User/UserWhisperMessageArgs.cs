@@ -3,6 +3,6 @@ using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.User
 {
-    public class UserWhisperMessageArgs : TwitchLibEventSubEventArgs<EventSubNotification<UserWhisperMessage>>
+    public class UserWhisperMessageArgs : TwitchLibEventSubEventArgs<UserWhisperMessage>
     { }
 }

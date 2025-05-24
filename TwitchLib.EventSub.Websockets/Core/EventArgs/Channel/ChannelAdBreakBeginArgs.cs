@@ -2,7 +2,7 @@
 using TwitchLib.EventSub.Websockets.Core.Models;
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelAdBreakBeginArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelAdBreakBegin>>
+    public class ChannelAdBreakBeginArgs : TwitchLibEventSubEventArgs<ChannelAdBreakBegin>
     {
     }
 }

@@ -3,6 +3,6 @@ using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelPointsCustomRewardArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelPointsCustomReward>>
+    public class ChannelPointsCustomRewardArgs : TwitchLibEventSubEventArgs<ChannelPointsCustomReward>
     { }
 }

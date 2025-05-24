@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.ShieldMode
         public string SubscriptionType => "channel.shield_mode.begin";
         
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelShieldModeBegin>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelShieldModeBegin>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelShieldModeBegin", new ChannelShieldModeBeginArgs { Notification = data });
+                client.RaiseEvent("ChannelShieldModeBegin", new ChannelShieldModeBeginArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

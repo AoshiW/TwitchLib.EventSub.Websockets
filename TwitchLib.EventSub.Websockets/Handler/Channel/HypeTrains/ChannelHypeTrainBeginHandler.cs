@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.HypeTrains
         public string SubscriptionType => "channel.hype_train.begin";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<HypeTrainBegin>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<HypeTrainBegin>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelHypeTrainBegin", new ChannelHypeTrainBeginArgs { Notification = data });
+                client.RaiseEvent("ChannelHypeTrainBegin", new ChannelHypeTrainBeginArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

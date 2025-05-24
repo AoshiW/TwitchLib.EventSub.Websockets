@@ -19,16 +19,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.SuspiciousUser
         public string SubscriptionType => "channel.suspicious_user.message";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelSuspiciousUserMessage>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelSuspiciousUserMessage>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelSuspiciousUserMessage", new ChannelSuspiciousUserMessageArgs { Notification = data });
+                client.RaiseEvent("ChannelSuspiciousUserMessage", new ChannelSuspiciousUserMessageArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

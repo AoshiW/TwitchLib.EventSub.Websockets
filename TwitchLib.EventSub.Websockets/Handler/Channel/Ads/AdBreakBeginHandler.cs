@@ -17,14 +17,14 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.Ads
         public string SubscriptionType => "channel.ad_break.begin";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelAdBreakBegin>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelAdBreakBegin>>(jsonString.AsSpan(), serializerOptions);
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
-                client.RaiseEvent("ChannelAdBreakBegin", new ChannelAdBreakBeginArgs { Notification = data });
+                client.RaiseEvent("ChannelAdBreakBegin", new ChannelAdBreakBeginArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

@@ -6,7 +6,7 @@ using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelSuspiciousUserMessageArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelSuspiciousUserMessage>>
+    public class ChannelSuspiciousUserMessageArgs : TwitchLibEventSubEventArgs<ChannelSuspiciousUserMessage>
     {
     }
 }

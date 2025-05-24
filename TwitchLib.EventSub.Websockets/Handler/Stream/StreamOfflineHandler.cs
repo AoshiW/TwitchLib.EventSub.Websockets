@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Stream
         public string SubscriptionType => "stream.offline";
 
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<StreamOffline>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<StreamOffline>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("StreamOffline", new StreamOfflineArgs { Notification = data });
+                client.RaiseEvent("StreamOffline", new StreamOfflineArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

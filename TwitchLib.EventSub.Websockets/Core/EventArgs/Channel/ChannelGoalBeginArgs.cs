@@ -3,6 +3,6 @@ using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelGoalBeginArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelGoalBegin>>
+    public class ChannelGoalBeginArgs : TwitchLibEventSubEventArgs<ChannelGoalBegin>
     { }
 }

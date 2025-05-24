@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.SharedChat
         public string SubscriptionType => "channel.shared_chat.end";
         
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelSharedChatSessionEnd>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelSharedChatSessionEnd>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelSharedChatSessionEnd", new ChannelSharedChatSessionEndArgs { Notification = data });
+                client.RaiseEvent("ChannelSharedChatSessionEnd", new ChannelSharedChatSessionEndArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

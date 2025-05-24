@@ -3,6 +3,6 @@ using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelBanArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelBan>>
+    public class ChannelBanArgs : TwitchLibEventSubEventArgs<ChannelBan>
     { }
 }

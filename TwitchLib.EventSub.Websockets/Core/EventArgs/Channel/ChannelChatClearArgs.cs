@@ -3,5 +3,5 @@ using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel;
 
-public class ChannelChatClearArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelChatClear>>
+public class ChannelChatClearArgs : TwitchLibEventSubEventArgs<ChannelChatClear>
 { }

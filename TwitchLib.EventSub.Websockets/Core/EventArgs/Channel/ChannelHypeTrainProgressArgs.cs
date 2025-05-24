@@ -3,6 +3,6 @@ using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelHypeTrainProgressArgs : TwitchLibEventSubEventArgs<EventSubNotification<HypeTrainProgress>>
+    public class ChannelHypeTrainProgressArgs : TwitchLibEventSubEventArgs<HypeTrainProgress>
     { }
 }

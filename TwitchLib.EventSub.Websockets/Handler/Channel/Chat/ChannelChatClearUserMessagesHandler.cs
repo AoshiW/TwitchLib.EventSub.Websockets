@@ -17,16 +17,16 @@ public class ChannelChatClearUserMessagesHandler : INotificationHandler
     public string SubscriptionType => "channel.chat.clear_user_messages";
 
     /// <inheritdoc />
-    public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+    public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
     {
         try
         {
-            var data = JsonSerializer.Deserialize<EventSubNotification<ChannelChatClearUserMessage>>(jsonString.AsSpan(), serializerOptions);
+            var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelChatClearUserMessage>>(jsonString.AsSpan(), serializerOptions);
 
             if (data is null)
                 throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-            client.RaiseEvent("ChannelChatClearUserMessages", new ChannelChatClearUserMessagesArgs { Notification = data });
+            client.RaiseEvent("ChannelChatClearUserMessages", new ChannelChatClearUserMessagesArgs { Payload = data, Metadata = metadata });
         }
         catch (Exception ex)
         {

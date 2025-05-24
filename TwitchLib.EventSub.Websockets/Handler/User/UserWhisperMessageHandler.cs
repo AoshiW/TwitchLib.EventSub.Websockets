@@ -17,16 +17,16 @@ public class UserWhisperMessageHandler : INotificationHandler
     public string SubscriptionType => "user.whisper.message";
 
     /// <inheritdoc />
-    public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+    public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
     {
         try
         {
-            var data = JsonSerializer.Deserialize<EventSubNotification<UserWhisperMessage>>(jsonString.AsSpan(), serializerOptions);
+            var data = JsonSerializer.Deserialize<EventSubNotificationPayload<UserWhisperMessage>>(jsonString.AsSpan(), serializerOptions);
 
             if (data is null)
                 throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-            client.RaiseEvent("UserWhisperMessage", new UserWhisperMessageArgs { Notification = data });
+            client.RaiseEvent("UserWhisperMessage", new UserWhisperMessageArgs { Payload = data, Metadata = metadata });
         }
         catch (Exception ex)
         {

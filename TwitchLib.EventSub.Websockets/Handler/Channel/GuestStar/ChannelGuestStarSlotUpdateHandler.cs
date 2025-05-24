@@ -17,16 +17,16 @@ namespace TwitchLib.EventSub.Websockets.Handler.Channel.GuestStar
         public string SubscriptionType => "channel.guest_star_slot.update";
         
         /// <inheritdoc />
-        public void Handle(EventSubWebsocketClient client, string jsonString, JsonSerializerOptions serializerOptions)
+        public void Handle(EventSubWebsocketClient client, string jsonString, WebsocketsEventSubMetadata metadata, JsonSerializerOptions serializerOptions)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<EventSubNotification<ChannelGuestStarSlotUpdate>>(jsonString.AsSpan(), serializerOptions);
+                var data = JsonSerializer.Deserialize<EventSubNotificationPayload<ChannelGuestStarSlotUpdate>>(jsonString.AsSpan(), serializerOptions);
 
                 if (data is null)
                     throw new InvalidOperationException("Parsed JSON cannot be null!");
 
-                client.RaiseEvent("ChannelGuestStarSlotUpdate", new ChannelGuestStarSlotUpdateArgs { Notification = data });
+                client.RaiseEvent("ChannelGuestStarSlotUpdate", new ChannelGuestStarSlotUpdateArgs { Payload = data, Metadata = metadata });
             }
             catch (Exception ex)
             {

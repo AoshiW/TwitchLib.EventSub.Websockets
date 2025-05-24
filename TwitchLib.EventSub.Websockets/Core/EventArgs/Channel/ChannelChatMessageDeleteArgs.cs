@@ -2,7 +2,7 @@
 using TwitchLib.EventSub.Websockets.Core.Models;
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelChatMessageDeleteArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelChatMessageDelete>>
+    public class ChannelChatMessageDeleteArgs : TwitchLibEventSubEventArgs<ChannelChatMessageDelete>
     {
     }
 }

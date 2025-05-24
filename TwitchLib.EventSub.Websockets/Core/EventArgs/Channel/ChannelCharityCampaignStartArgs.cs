@@ -3,7 +3,7 @@ using TwitchLib.EventSub.Websockets.Core.Models;
 
 namespace TwitchLib.EventSub.Websockets.Core.EventArgs.Channel
 {
-    public class ChannelCharityCampaignStartArgs : TwitchLibEventSubEventArgs<EventSubNotification<ChannelCharityCampaignStart>>
+    public class ChannelCharityCampaignStartArgs : TwitchLibEventSubEventArgs<ChannelCharityCampaignStart>
     { }
 }
 
